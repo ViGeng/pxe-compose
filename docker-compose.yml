@@ -1,22 +1,22 @@
 version: '3.8'
 services:
   dnsmasq:
-    image: thekelleys/dnsmasq:latest
+    image: sirscythe/dnsmasq-arm
     container_name: dnsmasq
     network_mode: host
+    cap_add:
+      - NET_ADMIN
     volumes:
       - ./dnsmasq.conf:/etc/dnsmasq.conf
-      - ./tftpboot:/tftpboot
+      # - ./tftpboot:/tftpboot
     restart: unless-stopped
 
   netbootxyz:
-    image: linuxserver/netbootxyz:latest
+    image: ghcr.io/netbootxyz/netbootxyz
     container_name: netbootxyz
     network_mode: host
-    ports:
-      - 3000:3000
-      - 69:69/udp
-      - 80:80
+    # When using network_mode: host, port mappings are not needed
+    # as the container binds directly to host network interfaces
     volumes:
       - ./netbootxyz/config:/config
       - ./netbootxyz/assets:/assets
