@@ -16,8 +16,9 @@ Docker-based PXE boot environment compatible with existing DHCP networks, suppor
    ```bash
    git clone https://github.com/vigeng/pxe-compose.git
    cd pxe-compose
-   # Edit dnsmasq.conf - update interface and IP address
    ```
+
+   Edit dnsmasq.conf - update **interface** and **IP address**
 
 2. Launch:
 
