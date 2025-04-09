@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  dnsmasq:
+    image: thekelleys/dnsmasq:latest
+    container_name: dnsmasq
+    network_mode: host
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf
+      - ./tftpboot:/tftpboot
+    restart: unless-stopped
+
+  netbootxyz:
+    image: linuxserver/netbootxyz:latest
+    container_name: netbootxyz
+    network_mode: host
+    ports:
+      - 3000:3000
+      - 69:69/udp
+      - 80:80
+    volumes:
+      - ./netbootxyz/config:/config
+      - ./netbootxyz/assets:/assets
+    environment:
+      - PUID=1000 # Replace with your user ID
+      - PGID=1000 # Replace with your group ID
+      - TZ=Europe/Berlin
+    restart: unless-stopped
